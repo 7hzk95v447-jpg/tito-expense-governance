@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import RequestWizard from "./request-wizard";
 import RequestDetail from "./request-detail";
-import WorkspaceView from "./workspace-views";
+import WorkspaceView from "./workspace-views-v2";
 
 type IconName = "home" | "tasks" | "file" | "batch" | "archive" | "chart" | "users" | "settings" | "bell" | "search" | "plus" | "clock" | "check" | "bank" | "wallet" | "backup" | "logout" | "arrow" | "close";
 
