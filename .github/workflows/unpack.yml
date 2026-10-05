@@ -1,0 +1,28 @@
+name: Install TITO source package
+
+on:
+  push:
+    paths:
+      - "TITO-Cloudflare-Ready.zip"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack verified source
+        run: |
+          test -f TITO-Cloudflare-Ready.zip
+          unzip -o TITO-Cloudflare-Ready.zip -d .
+          rm TITO-Cloudflare-Ready.zip
+      - name: Commit source tree
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Import verified TITO Cloudflare source"
+          git push
