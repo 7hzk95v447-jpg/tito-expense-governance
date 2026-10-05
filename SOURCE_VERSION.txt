@@ -1,0 +1,5 @@
+Cloudflare migration candidate — 2026-10-04
+Based on sanitized Sites v13, commit aaaa9adae5b0f8b0f4ce3e634844b140daeea9c1.
+This copy differs: standalone Wrangler/Vite configuration, password-only authentication, one-time administrator setup, shared PDF type definitions, Workers type declarations.
+Original live deployment and actual database/files were not modified.
+Cloudflare production deployment: not yet performed.

@@ -1,0 +1,7 @@
+"use client";
+import {useState, FormEvent} from "react";
+export default function Setup() {
+ const [message,setMessage]=useState(""); const [busy,setBusy]=useState(false);
+ async function submit(e:FormEvent<HTMLFormElement>){e.preventDefault();setBusy(true); const data=new FormData(e.currentTarget);try{const r=await fetch("/api/setup",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(Object.fromEntries(data))});const j=await r.json();if(!r.ok)throw new Error(j.error);window.location.assign("/login");}catch(e){setMessage(e instanceof Error?e.message:"تعذر الإعداد");setBusy(false);}}
+ return <main dir="rtl" className="min-h-screen bg-zinc-50 p-6 flex items-center justify-center"><form onSubmit={submit} className="w-full max-w-md bg-white rounded-2xl p-6 space-y-5"><h1 className="text-2xl font-bold text-red-700">إعداد مدير TITO</h1><p>تهيئة لمرة واحدة. أدخل رمز التهيئة الذي ضبطته في Cloudflare ثم اختر بيانات دخول المدير.</p>{[["token","رمز التهيئة","password"],["username","اسم المستخدم","text"],["password","كلمة المرور الجديدة (12 حرفاً على الأقل)","password"]].map(([name,label,type])=><label key={name} className="block">{label}<input required name={name} type={type} autoComplete={name==="password"?"new-password":"off"} dir="ltr" className="block mt-2 w-full border rounded-lg p-3"/></label>)}{message?<p role="alert">{message}</p>:null}<button disabled={busy} className="w-full bg-red-700 text-white rounded-lg p-3">{busy?"جارٍ الإعداد":"حفظ المدير"}</button></form></main>;
+}

@@ -1,3 +1,20 @@
-# TITO Expense Governance
+# TITO — نظام حوكمة الصرف والتحويلات
+نسخة مستقلة لCloudflare Workers مبنية من حزمة تسليم المصدر v13. الموقع السابق وبياناته لم يتغيرا.
 
-Cloudflare deployment source for TITO financial governance system.
+## النشر من لوحة Cloudflare
+1. Workers & Pages → Create application → Connect GitHub → اختر هذا المستودع.
+2. اسم التطبيق: `tito-expense-governance`، الفرع: `main`.
+3. Build command: `npm run build`.
+4. Deploy command: `npm run deploy`.
+5. إصدار Node: 22.13 أو أحدث (متغير البناء `NODE_VERSION=22`).
+6. فعّل R2 في حسابك إذا طلبته Cloudflare؛ قد يتطلب إعداد الفوترة. يوفّر Wrangler DB وBUCKET تلقائياً ثم يطبق migrations. تأكد من نجاح الخطوتين في سجل النشر.
+7. من Settings → Variables and Secrets أضف **Secret** اسمه `SETUP_TOKEN` بقيمة عشوائية تختارها لا تقل عن 24 حرفاً، ثم أعد النشر.
+8. افتح رابط Worker الجديد متبوعاً بـ `/setup` وأدخل الرمز، واختر اسم المدير وكلمة مرور قوية. بعد النجاح احذف Secret `SETUP_TOKEN`. الدخول بعدها من `/login` باسم المستخدم وكلمة المرور، دون ChatGPT.
+
+## التشغيل المحلي
+`npm ci` ثم `npm run db:local` ثم `npm run dev`.
+ضع SETUP_TOKEN في `.dev.vars` محلياً فقط. لا ترفعه إلى GitHub.
+
+## حدود هذه النسخة
+تحتوي الكود والأصول ومخطط البيانات وبيانات التهيئة العامة فقط؛ لا تحتوي معاملات الموقع القديم أو مستخدميه أو مرفقاته. نقلها يحتاج تصديراً خاصاً من D1 وR2 القديمة ثم استيراداً آمناً. لا تعتبر نشر الكود نقلاً للبيانات.
+المستودع مستقل عن استضافة ChatGPT ولا يعتمد على ترويسات هوية المنصة. أُضيف إعداد المدير لمرة واحدة باستخدام Secret وحماية التحديث الشرطي.
